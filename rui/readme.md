@@ -25,7 +25,7 @@
         <div class="cloud"></div>
         ```
 
-      should be able to instance become behaviour when it recieves an attributal change:
+      should be able to become behavioural when it recieves an attributal change:
 
       ```html
         <div class="cloud" vibrate></div>
@@ -46,7 +46,7 @@
 
         DataTree := Struct{
           Name: Reactive{"alex"}),
-          Rates: DatTree({
+          Rates: DataTree({
             Counter: (Reactive{1}),
             Rate: (Reactive{43})
           }),
@@ -74,7 +74,7 @@
 
      ```
 
-  DataTree will have structs who can register internal render interfaces who can affect its final rendering
+  DataTree are structs that can register internal render interfaces who can affect its final rendering
      result to which the result can then be passed down into vdom for its final result to be displayed to the browser or rendering console.
 
      How do we get the data into the tree:
