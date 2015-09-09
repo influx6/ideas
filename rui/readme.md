@@ -43,11 +43,11 @@
 
         Renderers []RenderInterface
 
-        DataTree := {
-          name: Reactive{"alex"}),
-          rates: DatTree({
-            counter: (Reactive{1}),
-            rate: (Reactive{43})
+        DataTree := Struct{
+          Name: Reactive{"alex"}),
+          Rates: DatTree({
+            Counter: (Reactive{1}),
+            Rate: (Reactive{43})
           }),
         }
 
@@ -63,7 +63,13 @@
            </div>
         */
 
-
+        //bigest issue is it has become normal to do embedd the render code
+        //in the template and not as part of the code wonder if we can do This
+        //put the template into a larger template file and just pass in the struct
+        //but we loose a way to actively update that data directly since we dont
+        //generate it from the core target,best to stick with this approach but
+        //find a seamless way of integrating the code to render experience to be
+        //easy
 
      ```
 
