@@ -30,7 +30,7 @@
         <div class="cloud" vibrate></div>
       ```
 
-    - Data Reactivity: Data reactivity should embodie the change of values and trees of the behaviours of
+  - Data Reactivity: Data reactivity should embodie the change of values and trees of the behaviours of
     elements, where elements should be able to render themselves within a good and usable manner. Where a single
     change in the data values of a element,will cause a change in the rendered data of an element.
 
@@ -73,7 +73,7 @@
 
      ```
 
-     DataTree will have structs who can register internal render interfaces who can affect its final rendering
+  DataTree will have structs who can register internal render interfaces who can affect its final rendering
      result to which the result can then be passed down into vdom for its final result to be displayed to the browser or rendering console.
 
      How do we get the data into the tree:
