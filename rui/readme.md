@@ -11,8 +11,9 @@
  elements to react to change in value.
 
  Core Reactive Scope:
-   Behavioural/State Reactivity: elements can change behaviour depending on attribute or state
-   Data Reactivity: elements can react to change in data
+   - Behavioural/State Reactivity: elements can change behaviour depending on attribute or state
+
+   - Data Reactivity: elements can react to change in data
 
  Examples:
 
