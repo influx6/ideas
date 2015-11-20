@@ -61,7 +61,7 @@ The real keys and usefulness of any reactive system is based on:
  For higher level basic types (Arrays,Slices,Map) there needs to be a system in
  place for each type that, allows the following:
 
-  1. Represent the diff of a state i.e a structure that represent what is need to
+  - Represent the diff of a state i.e a structure that represent what is need to
    move from one state to the next e.g
 
      Using our DREAM API:
