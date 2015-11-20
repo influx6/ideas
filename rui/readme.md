@@ -52,17 +52,22 @@
           }),
         }
 
-        rendertree = Renderer(DataTree,(`
+        //the name-tag for the element to have
+        atom = Renderer(domNode,(`
            <div class={{DataTree.name}}>
              <label>Rates: {{DataTree.rates.rate}}</label>
              <label>Count: {{DataTree.rates.counter}}</label>
            </div>
-        `)) /* =>
+        `)).use(DataTree) /* =>
            <div class=alex>
              <label>Rates: 1</label>
              <label>Count: 43</label>
            </div>
         */
+
+
+        //Mount sets up the parent to watch for this element type
+        atom.Mount(DOMNode(div))
 
         //bigest issue is it has become normal to do embedd the render code
         //in the template and not as part of the code wonder if we can do This
