@@ -113,7 +113,7 @@ The real keys and usefulness of any reactive system is based on:
         {Action: ADD, props: {"name":"alex"}}
         {Action: REMOVE, props: {"name":"alex"}}]
 
-        // A more efficient repsentation is:
+        // A more efficient diff structure is:
         AllDiff(atom) => {
          "name": ({val: "john"}, next: {val:"bob", next: {"alex", next: {val:"", next: nil}}}),
          "age": ({val: nil}, next: {val:21, next: nil}),
@@ -132,3 +132,48 @@ The real keys and usefulness of any reactive system is based on:
    That is our dream api should represent the series of computation to attain
    a final state and not this final state itself. When ever you get a value
    from such a structure,it should compute the state for that field.
+
+## The Problem
+  This current idea is indeed interesting but we have one huge problem, `Structs`.
+  Yes the cute, composable buddy of all go programmers is the beast of reactivity,
+  one a simple case, we can bend it into submission but because structs can contain
+  composed structs or defined interfaces, lets just say you are in for a headache.
+
+  **The Question**
+   1. Should you stick to use map like structures for key:value pairs?
+   2. Should we allow struct types because we can never escape them and if we
+   have certain rules that restricts what can be done in a reactive sense and
+   use a wrap structure that safe-guards those rules, will it still be a cool API?
+
+   3. What does a feasible reactive struct look like?
+
+   ```go
+
+    type Address struct{
+      Postal string
+      Zip string
+    }
+
+    type Profile struct{
+      Name string
+      Age int
+      Active bool
+      Address *Address
+    }
+
+    atom := ReactiveStructs(&Profile{
+      Name: "bob",
+      Age: 30,
+      Active: true,
+    })
+
+    nameReactorValue := atom.Get("Name") // => returns a ReactiveValue
+
+    nameReactorValue.Value() => "bob"
+    nameReactorValue.Set("john") // creates a diff structure with the state transition
+    nameReactorValue.Get() => "john" // computes the states to return the value 'john'
+
+    addressReactor := atom.Get("Address") //=> returns a ReactiveStruct
+
+    postalReactorValue := addressReactor.Get("Postal") // => ReactiveValue
+   ```
