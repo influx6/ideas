@@ -82,7 +82,7 @@ The real keys and usefulness of any reactive system is based on:
 
         atom.ToMap() => {name: "john"}
 
-        atom.Set("name","john")
+        atom.Set("name","bob")
 
         diff(atom) => {name:"bob"}
 
