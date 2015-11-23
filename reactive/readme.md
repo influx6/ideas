@@ -177,3 +177,41 @@ The real keys and usefulness of any reactive system is based on:
 
     postalReactorValue := addressReactor.Get("Postal") // => ReactiveValue
    ```
+
+## Interesting Ideas
+
+### Redux
+  Redux is a retake on the flux framework and borrows from log-based application design where the log is the central source of all truths. That is all changes happen in the log and all reads are taking from the log. I find these design principle to be very attractive, has it simplifies a lot of the complexity of dealing with individual sources of truths. An example of redux code as below:
+
+  ```js
+
+     state = 0
+     // a reducer
+     cumm = function(state, action){
+       switch action {
+         case "INCREMENT":
+           return state + 1
+         case "DECREMENT":
+           return state - 1
+       }
+       return state
+     }
+
+     //a central signal store
+     store = redux.CreateStore(cumm)
+
+     store.OnChange(function(newstate, oldstate){
+       // we get the old state and newstate as notifications of change
+     })
+
+     store.Signal({ action: "INCREMENT"})
+     store.Signal({ action: "DECREMENT"})
+
+
+  ```
+
+
+  Its a rather simple but interesting concept, because all changes take place in the store and others give their intent to create a mutation, rather than mutate the state directly, we encapsulate alot of the complexity of mutations randomly happening and remove all race-conditions that can happen because all reads and writes are done in order rather than out of order,even in concurrent systems, you get this safety with such a design.
+
+## The question
+  1. How can we take this principle from log-based design and redux ideas of reducers(functions that effect the change in stores) into a more flexible go idiomatic API for our reactive library.
