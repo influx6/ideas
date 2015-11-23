@@ -180,6 +180,7 @@ The real keys and usefulness of any reactive system is based on:
 
 ## Interesting Ideas
 
+
 ### Redux
   Redux is a retake on the flux framework and borrows from log-based application design where the log is the central source of all truths. That is all changes happen in the log and all reads are taking from the log. I find these design principle to be very attractive, has it simplifies a lot of the complexity of dealing with individual sources of truths. An example of redux code as below:
 
@@ -213,5 +214,50 @@ The real keys and usefulness of any reactive system is based on:
 
   Its a rather simple but interesting concept, because all changes take place in the store and others give their intent to create a mutation, rather than mutate the state directly, we encapsulate alot of the complexity of mutations randomly happening and remove all race-conditions that can happen because all reads and writes are done in order rather than out of order,even in concurrent systems, you get this safety with such a design.
 
-## The question
+## Questions
+
   1. How can we take this principle from log-based design and redux ideas of reducers(functions that effect the change in stores) into a more flexible go idiomatic API for our reactive library.
+
+   A: We want to have a similar idea for each reactive structure. It should be the cental source of truth. That is we need to squiz out all the fragmentation from the api and ensure all modifications happen with the parent source, that is if their are any deep alias/structures pointing to any sub-level structure, then any write to such a structure must be passed up to the parent, there should be no modification which the parent or source does not know about. The source must perform its reads and writes in a orderly manner (possibly batching reads and writes) thereby limiting any unexpected conditions taking effect.
+
+   - What this solves?
+     1. Removes all possible race-conditions within the structure.
+     2. Provides a predicable mutation/transformation of any structure which allows easy features like:
+       - Time travel
+       - Recording/Replay of change/action
+     3. It Simplifies our lives.
+
+   2. Do we see some advantage to the ideas of reducers(functions that affect change) for stores?
+
+### Cycle.js
+  Cyclejs takes a different but interesting approach in how it handles reactivity by thinking of cyclical feeding systems, where one part is considered the 'Computer' and the other the 'Human'. Each parts consistently and continously feed each other, where the output from one becomes the input of the other and vise-versa.
+  At first, It may seem rather odd but its rather a useful approach, allow a natural flow since in truth, every thing we do follow such a principle, eg. The inputs from the human hand to the mouse feeds the cursor on screen which feeds the visual senses of the human which feeds the cursor's direction on screen, a complete cycle of request-response.
+
+  ```js
+
+      function Main(requests){
+        dom = requests.DOM
+        // response
+        return {
+          DOM: dom.find('.load').map(function(val){
+            return h.Div(h.Ul(h.li(val.getAttribute('id'))))  
+          }),
+        }
+      }
+
+      dom = require('domdriver')
+      drivers = {
+        DOM: dom,
+        Ajax: ...,
+      }
+
+      cycle.Run(Main,drivers)
+  ```
+
+  Like the sample code above:
+   Cycle has a main Run(Main,Drivers) method that handles the feeding of drivers, that generate requests which are passed into a Main() function, that listen for those requests and replies with responses(using the namespace for the target driver). It heavily relies on Rjx(ReactiveX) library to provide the continuous, reactive stream of inputs and outputs. By handling the feed loop and cycle of outputs response into input requests,it provides the cycle of 'Computer -> <- Human' interaction. A very powerful constructs.
+
+   Questions:
+   1. What exists in Cyclejs, that we can benefit from?
+   2. What part of these structure provides something interesting for us?
+   3. Do we need or adopt some piece or part of its idea?
