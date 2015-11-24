@@ -165,6 +165,15 @@ The real keys and usefulness of any reactive system is based on:
       Name: "bob",
       Age: 30,
       Active: true,
+      Address : &Addres{
+        Postal: "43L NY",
+        Zip:"11232",
+      },
+    })
+
+    atom.Signal(Signal{
+        "addr": ".address",
+        "postal": "543GL LU",
     })
 
     nameReactorValue := atom.Get("Name") // => returns a ReactiveValue
@@ -261,3 +270,12 @@ The real keys and usefulness of any reactive system is based on:
    1. What exists in Cyclejs, that we can benefit from?
    2. What part of these structure provides something interesting for us?
    3. Do we need or adopt some piece or part of its idea?
+
+## Conclusion:
+  I believe all these ideas portrayed here are interesting but are not necessarily the solution. I believe we can not achieve a total reactive library that utterly simplifies all use cases in go but rather we can adopted specific patterns like Redux and Cyclejs, which both simplifies our codes and provide the needed reactivity we want.
+
+  We have been trying to create a library that embodies a total construct for reactivity but this will end up to be rather a large, bloated cases of reflect packages and its mix. Go is a very unique language and in truth, when you fill like you are doing something 'Clever' then Stop, Think and Reverse to something simple.
+
+  I think adopting the ideas in here into patterns and yes, repetitive patterns we can use in code, as per needed by the situation is a more useful approach.
+
+  The Key is the Patterns and not a Library.
