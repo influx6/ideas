@@ -225,18 +225,17 @@ The real keys and usefulness of any reactive system is based on:
 
 ## Questions
 
-  1. How can we take this principle from log-based design and redux ideas of reducers(functions that effect the change in stores) into a more flexible go idiomatic API for our reactive library.
+  - How can we take this principle from log-based design and redux ideas of reducers(functions that effect the change in stores) into a more flexible go idiomatic API for our reactive library.
 
-   A: We want to have a similar idea for each reactive structure. It should be the cental source of truth. That is we need to squiz out all the fragmentation from the api and ensure all modifications happen with the parent source, that is if their are any deep alias/structures pointing to any sub-level structure, then any write to such a structure must be passed up to the parent, there should be no modification which the parent or source does not know about. The source must perform its reads and writes in a orderly manner (possibly batching reads and writes) thereby limiting any unexpected conditions taking effect.
+       A: We want to have a similar idea for each reactive structure. It should be the cental source of truth. That is we need to squiz out all the fragmentation from the api and ensure all modifications happen with the parent source, that is if their are any deep alias/structures pointing to any sub-level structure, then any write to such a structure must be passed up to the parent, there should be no modification which the parent or source does not know about. The source must perform its reads and writes in a orderly manner (possibly batching reads and writes) thereby limiting any unexpected conditions taking effect.
 
    - What this solves?
      1. Removes all possible race-conditions within the structure.
      2. Provides a predicable mutation/transformation of any structure which allows easy features like:
-       - Time travel
-       - Recording/Replay of change/action
-     3. It Simplifies our lives.
+        - Time travel
+        - Recording/Replay of change/action
 
-   2. Do we see some advantage to the ideas of reducers(functions that affect change) for stores?
+- Do we see some advantage to the ideas of reducers(functions that affect change) for stores?
 
 ### Cycle.js
   Cyclejs takes a different but interesting approach in how it handles reactivity by thinking of cyclical feeding systems, where one part is considered the 'Computer' and the other the 'Human'. Each parts consistently and continously feed each other, where the output from one becomes the input of the other and vise-versa.
@@ -264,7 +263,7 @@ The real keys and usefulness of any reactive system is based on:
   ```
 
   Like the sample code above:
-   Cycle has a main Run(Main,Drivers) method that handles the feeding of drivers, that generate requests which are passed into a Main() function, that listen for those requests and replies with responses(using the namespace for the target driver). It heavily relies on Rjx(ReactiveX) library to provide the continuous, reactive stream of inputs and outputs. By handling the feed loop and cycle of outputs response into input requests,it provides the cycle of 'Computer -> <- Human' interaction. A very powerful constructs.
+   Cycle has a main Run(Main,Drivers) method that handles the feeding of drivers, that generate requests which are passed into a Main() function, that listen for those requests and replies with responses(using the namespace for the target driver). It heavily relies on Rjx(ReactiveX) library to provide the continuous, reactive stream of inputs and outputs. By handling the feed loop and cycle of outputs response into input requests,it provides the cycle of `Computer -> <- Human` interaction. A very powerful constructs.
 
    Questions:
    1. What exists in Cyclejs, that we can benefit from?
